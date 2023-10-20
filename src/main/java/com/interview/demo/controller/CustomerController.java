@@ -34,7 +34,6 @@ public class CustomerController {
 	@GetMapping("/getAllCustomers")
 	public List<CustomerDto> getAllCustomers() {
 		List<Customer> customers = customerService.getAllCustomers();
-
 		List<CustomerDto> custometDTOs = customers.stream().map(customer -> {
 			CustomerDto dto = new CustomerDto();
 			dto.setAddress(customer.getAddress());

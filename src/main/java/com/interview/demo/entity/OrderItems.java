@@ -1,5 +1,6 @@
 package com.interview.demo.entity;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -13,7 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
-import com.interview.demo.dto.OrderDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,8 +27,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties
 @Table(name = "order_items")
-public class OrderItems {
+public class OrderItems implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Type(type = "uuid-char")
@@ -38,8 +41,9 @@ public class OrderItems {
 	private double price;
 	@Column(name = "quantity")
 	private int quantity;
+	@JsonBackReference
 	@ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+	@JoinColumn(name = "order_id")
+	private Order order;
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.interview.demo.dto.OrderDto;
 import com.interview.demo.entity.Order;
 import com.interview.demo.service.OrderService;
 
@@ -25,8 +26,8 @@ public class OrderController {
 //	private OrderRepository orderRepository;
 
 	@PostMapping
-	public Order createOrder(@RequestBody Order order) {
-		return orderService.createOrder(order);
+	public Order createOrder(@RequestBody OrderDto orderDto) {
+		return orderService.createOrder(orderDto);
 	}
 
 	@GetMapping

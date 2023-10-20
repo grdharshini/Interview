@@ -7,6 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.interview.demo.dto.OrderDto;
+import com.interview.demo.dto.OrderItemsDto;
 import com.interview.demo.entity.Customer;
 import com.interview.demo.entity.Order;
 import com.interview.demo.entity.OrderItems;
@@ -22,33 +24,15 @@ public class OrderService {
 	@Autowired
 	CustomerRepository customerRepository;
 
-	public Order createOrder(Order order) {
-		Customer customer = customerRepository.findById(order.getId()).orElse(null);
-		if (customer == null) {
-			return null;
-		}
-
-		Order newOrder = new Order();
-		newOrder.setOrderDate(order.getOrderDate());
-		newOrder.setShippingAddress(order.getShippingAddress());
-		newOrder.setTotalAmount(order.getTotalAmount());
-//		newOrder.setCustomer(customer);
-//		List<OrderItems> orderItems = new ArrayList<>();
-//		for (OrderItems orderItem : order.getOrderItems()) {
-//			orderItem.setProduct(orderItem.getProduct());
-//			orderItem.setPrice(orderItem.getPrice());
-//			orderItem.setQuantity(orderItem.getQuantity());
-//			orderItem.setOrder(newOrder);
-//			orderItems.add(orderItem);
-//		}
-//
-//		newOrder.setOrderItems(orderItems);
-
-		return orderRepository.save(newOrder);
-	}
+	public Order createOrder(OrderDto orderDto) {
+        Order order = new Order();
+        order.setOrderDate(orderDto.getOrderDate());
+        order.setShippingAddress(orderDto.getShippingAddress());
+        order.setTotalAmount(orderDto.getTotalAmount());
+        return orderRepository.save(order);
+    }
 
 	public List<Order> getAllOrders() {
-		// TODO Auto-generated method stub
 		return orderRepository.findAll();
 	}
 

@@ -1,6 +1,6 @@
 package com.interview.demo.entity;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -13,10 +13,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,8 +33,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties
 @Table(name = "sales_order")
-public class Order {
+public class Order implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Type(type = "uuid-char")
@@ -41,7 +47,15 @@ public class Order {
 	private String shippingAddress;
 	@Column(name = "total_amount")
 	private double totalAmount;
-	@OneToMany(targetEntity = OrderItems.class, cascade = CascadeType.ALL)
-	@JoinColumn(name = "order_id", referencedColumnName = "id")
-	private List<OrderItems> orderItems = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	@JsonBackReference
+	private Customer customer;
+
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonManagedReference
+	private List<OrderItems> orderItems;
+//	@OneToMany(targetEntity = OrderItems.class, cascade = CascadeType.ALL)
+//	@JoinColumn(name = "order_id", referencedColumnName = "id")
+//	private List<OrderItems> orderItems = new ArrayList<>();
 }

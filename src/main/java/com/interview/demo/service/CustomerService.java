@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.interview.demo.dto.CustomerDto;
 import com.interview.demo.dto.OrderDto;
+import com.interview.demo.dto.OrderItemsDto;
 import com.interview.demo.entity.Customer;
 import com.interview.demo.entity.Order;
+import com.interview.demo.entity.OrderItems;
 import com.interview.demo.repository.CustomerRepository;
 
 @Service
@@ -33,6 +35,21 @@ public class CustomerService {
 			order.setOrderDate(orderDto.getOrderDate());
 			order.setShippingAddress(orderDto.getShippingAddress());
 			order.setTotalAmount(orderDto.getTotalAmount());
+			List<OrderItems> orderItems = new ArrayList<>();
+			for (OrderItemsDto orderItemDTO : orderDto.getOrderItems()) {
+				OrderItems orderItem = new OrderItems();
+				orderItem.setProduct(orderItemDTO.getProduct());
+				orderItem.setPrice(orderItemDTO.getPrice());
+				orderItem.setQuantity(orderItemDTO.getQuantity());
+				orderItem.setOrder(order);
+				orderItems.add(orderItem);
+				
+			}
+			order.setCustomer(customer);
+			order.setOrderItems(orderItems);
+			orders.add(order);
+		}
+		customer.setOrders(orders);
 //			List<OrderItems> orderItemsList = new ArrayList<>();
 //			for (OrderItemsDto orderItemDto : orderDto.getOrderItems()) {
 //				OrderItems orderItem = new OrderItems();
@@ -43,9 +60,9 @@ public class CustomerService {
 //				orderItemsList.add(orderItem);
 //			}
 //			order.setOrderItems(orderItemsList);
-			orders.add(order);
-		}
-		customer.setOrders(orders);
+//			orders.add(order);
+//		}
+//		customer.setOrders(orders);
 		return customerRepository.save(customer);
 	}
 
@@ -69,25 +86,25 @@ public class CustomerService {
 
 	}
 
-	    public List<Customer> filterCustomers(String customerName, String email, String phoneNo) {
-	        List<Customer> allCustomers = customerRepository.findAll();
+	public List<Customer> filterCustomers(String customerName, String email, String phoneNo) {
+		List<Customer> allCustomers = customerRepository.findAll();
 
-	        Stream<Customer> customerStream = allCustomers.stream();
+		Stream<Customer> customerStream = allCustomers.stream();
 
-	        if (customerName != null) {
-	            customerStream = customerStream.filter(customer -> customer.getCustomerName().equals(customerName));
-	        }
+		if (customerName != null) {
+			customerStream = customerStream.filter(customer -> customer.getCustomerName().equals(customerName));
+		}
 
-	        if (email != null) {
-	            customerStream = customerStream.filter(customer -> customer.getEmail().equals(email));
-	        }
+		if (email != null) {
+			customerStream = customerStream.filter(customer -> customer.getEmail().equals(email));
+		}
 
-	        if (phoneNo != null) {
-	            customerStream = customerStream.filter(customer -> customer.getPhoneNo().equals(phoneNo));
-	        }
+		if (phoneNo != null) {
+			customerStream = customerStream.filter(customer -> customer.getPhoneNo().equals(phoneNo));
+		}
 
-	        return customerStream.collect(Collectors.toList());
-	    
+		return customerStream.collect(Collectors.toList());
+
 	}
 
 }
