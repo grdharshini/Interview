@@ -47,4 +47,8 @@ public class OrderService {
 		return existingOrder;
 	}
 
+	public List<Order> getOrdersForCustomer(Customer customer) {
+		return orderRepository.findAll();
+	}
+
 }
