@@ -11,6 +11,7 @@ import com.interview.demo.dto.BinWiseSummaryDto;
 import com.interview.demo.entity.BinWiseSummary;
 import com.interview.demo.repository.BinWiseSummaryRepository;
 
+
 @Service
 public class BinWiseSummaryService {
 
