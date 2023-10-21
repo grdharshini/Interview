@@ -25,12 +25,12 @@ public class OrderService {
 	CustomerRepository customerRepository;
 
 	public Order createOrder(OrderDto orderDto) {
-        Order order = new Order();
-        order.setOrderDate(orderDto.getOrderDate());
-        order.setShippingAddress(orderDto.getShippingAddress());
-        order.setTotalAmount(orderDto.getTotalAmount());
-        return orderRepository.save(order);
-    }
+		Order order = new Order();
+		order.setOrderDate(orderDto.getOrderDate());
+		order.setShippingAddress(orderDto.getShippingAddress());
+		order.setTotalAmount(orderDto.getTotalAmount());
+		return orderRepository.save(order);
+	}
 
 	public List<Order> getAllOrders() {
 		return orderRepository.findAll();

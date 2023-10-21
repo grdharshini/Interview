@@ -50,19 +50,6 @@ public class CustomerService {
 			orders.add(order);
 		}
 		customer.setOrders(orders);
-//			List<OrderItems> orderItemsList = new ArrayList<>();
-//			for (OrderItemsDto orderItemDto : orderDto.getOrderItems()) {
-//				OrderItems orderItem = new OrderItems();
-//				orderItem.setProduct(orderItemDto.getProduct());
-//				orderItem.setPrice(orderItemDto.getPrice());
-//				orderItem.setQuantity(orderItemDto.getQuantity());
-//				orderItem.setOrder(order);
-//				orderItemsList.add(orderItem);
-//			}
-//			order.setOrderItems(orderItemsList);
-//			orders.add(order);
-//		}
-//		customer.setOrders(orders);
 		return customerRepository.save(customer);
 	}
 

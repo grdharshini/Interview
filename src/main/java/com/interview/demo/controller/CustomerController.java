@@ -86,7 +86,6 @@ public class CustomerController {
 				List<OrderItemsDto> orderItemDTOs = orderItems.stream().map(orderItem -> {
 					OrderItemsDto orderItemDto = new OrderItemsDto();
 					orderItemDto.setId(orderItem.getId());
-
 					orderItemDto.setPrice(orderItem.getPrice());
 					orderItemDto.setProduct(orderItem.getProduct());
 					orderItemDto.setQuantity(orderItem.getQuantity());

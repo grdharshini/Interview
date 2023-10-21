@@ -51,11 +51,8 @@ public class Order implements Serializable {
 	@JoinColumn(name = "customer_id")
 	@JsonBackReference
 	private Customer customer;
-
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonManagedReference
 	private List<OrderItems> orderItems;
-//	@OneToMany(targetEntity = OrderItems.class, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "order_id", referencedColumnName = "id")
-//	private List<OrderItems> orderItems = new ArrayList<>();
+
 }

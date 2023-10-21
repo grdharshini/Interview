@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.interview.demo.entity.Order;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order, UUID>{
+public interface OrderRepository extends JpaRepository<Order, UUID> {
 
 }

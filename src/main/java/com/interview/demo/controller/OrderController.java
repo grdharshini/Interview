@@ -22,8 +22,6 @@ public class OrderController {
 
 	@Autowired
 	OrderService orderService;
-//	private CustomerRepository customerRepository;
-//	private OrderRepository orderRepository;
 
 	@PostMapping
 	public Order createOrder(@RequestBody OrderDto orderDto) {
